@@ -34,36 +34,33 @@ export default function LoginPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+      <div className="min-h-screen flex items-center justify-center bg-zinc-950">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-zinc-400 border-t-transparent"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12 px-4 sm:px-6 lg:px-8">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-zinc-950 py-12 px-4 sm:px-6 lg:px-8">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/50 to-zinc-950"></div>
 
       <div className="relative max-w-md w-full">
         {/* Login card */}
-        <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-slate-700">
+        <div className="bg-zinc-900 rounded-2xl shadow-2xl p-8 border border-zinc-800">
           {/* Logo/Icon */}
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-tr from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-zinc-800 rounded-2xl flex items-center justify-center shadow-lg border border-zinc-700">
+              <svg className="w-8 h-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
           </div>
 
-          <h2 className="text-2xl font-bold text-white text-center mb-2">
+          <h2 className="text-2xl font-bold text-zinc-100 text-center mb-2">
             Welcome Back
           </h2>
-          <p className="text-white/60 text-center mb-8">
+          <p className="text-zinc-500 text-center mb-8">
             Sign in to continue
           </p>
 
@@ -76,7 +73,7 @@ export default function LoginPage() {
 
             <div className="space-y-4">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-1.5">
+                <label htmlFor="email" className="block text-sm font-medium text-zinc-400 mb-1.5">
                   Email
                 </label>
                 <input
@@ -85,7 +82,7 @@ export default function LoginPage() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -93,7 +90,7 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-white/80 mb-1.5">
+                <label htmlFor="password" className="block text-sm font-medium text-zinc-400 mb-1.5">
                   Password
                 </label>
                 <input
@@ -102,7 +99,7 @@ export default function LoginPage() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -113,11 +110,11 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full py-3 px-4 bg-zinc-100 text-zinc-900 font-semibold rounded-xl shadow-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-zinc-900" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
@@ -131,27 +128,27 @@ export default function LoginPage() {
         </div>
 
         {/* Demo credentials card */}
-        <div className="mt-6 bg-slate-800/30 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
-          <p className="text-slate-500 text-xs text-center mb-2">Demo Accounts</p>
+        <div className="mt-6 bg-zinc-900/50 rounded-xl p-4 border border-zinc-800">
+          <p className="text-zinc-600 text-xs text-center mb-2">Demo Accounts</p>
           <div className="flex justify-center gap-3 text-xs">
             <button
               type="button"
               onClick={() => { setEmail('admin@example.com'); setPassword('password123'); }}
-              className="px-3 py-1.5 bg-blue-600/30 text-blue-300 rounded-lg hover:bg-blue-600/50 transition-colors"
+              className="px-3 py-1.5 bg-zinc-800 text-zinc-400 rounded-lg hover:bg-zinc-700 hover:text-zinc-300 transition-colors border border-zinc-700"
             >
               Admin
             </button>
             <button
               type="button"
               onClick={() => { setEmail('manager@example.com'); setPassword('password123'); }}
-              className="px-3 py-1.5 bg-cyan-600/30 text-cyan-300 rounded-lg hover:bg-cyan-600/50 transition-colors"
+              className="px-3 py-1.5 bg-zinc-800 text-zinc-400 rounded-lg hover:bg-zinc-700 hover:text-zinc-300 transition-colors border border-zinc-700"
             >
               Manager
             </button>
             <button
               type="button"
               onClick={() => { setEmail('user@example.com'); setPassword('password123'); }}
-              className="px-3 py-1.5 bg-slate-600/30 text-slate-300 rounded-lg hover:bg-slate-600/50 transition-colors"
+              className="px-3 py-1.5 bg-zinc-800 text-zinc-400 rounded-lg hover:bg-zinc-700 hover:text-zinc-300 transition-colors border border-zinc-700"
             >
               User
             </button>
