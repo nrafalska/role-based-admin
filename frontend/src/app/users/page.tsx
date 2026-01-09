@@ -269,11 +269,9 @@ export default function UsersPage() {
                           value={formData.role}
                           onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                         >
-                          {roles.map((role) => (
-                            <option key={role} value={role} className="capitalize">
-                              {role}
-                            </option>
-                          ))}
+                          <option value="admin">Admin</option>
+                          <option value="manager">Manager</option>
+                          <option value="user">User</option>
                         </select>
                       </div>
                     </div>
