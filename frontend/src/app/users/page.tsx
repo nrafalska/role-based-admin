@@ -8,7 +8,7 @@ import { User, CreateUserData, PERMISSIONS } from '@/types';
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
-  const [roles, setRoles] = useState<string[]>([]);
+  const [roles, setRoles] = useState<string[]>(['admin', 'manager', 'user']);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -27,12 +27,18 @@ export default function UsersPage() {
 
   const fetchData = async () => {
     try {
-      const [usersResponse, rolesResponse] = await Promise.all([
-        usersApi.getAll(),
-        usersApi.getRoles(),
-      ]);
+      const usersResponse = await usersApi.getAll();
       setUsers(usersResponse.users);
-      setRoles(rolesResponse.roles);
+
+      // Try to fetch roles, but keep defaults if it fails
+      try {
+        const rolesResponse = await usersApi.getRoles();
+        if (rolesResponse.roles && rolesResponse.roles.length > 0) {
+          setRoles(rolesResponse.roles);
+        }
+      } catch {
+        // Keep default roles
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load users');
     } finally {
