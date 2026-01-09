@@ -11,16 +11,8 @@ services:
       - db
     command: >
       sh -c "
-      apt-get update &&
-      apt-get install -y git unzip libzip-dev &&
-      docker-php-ext-install pdo pdo_mysql zip &&
-      php artisan key:generate &&
-      php artisan migrate --force &&
-      php artisan db:seed &&
-      php artisan serve --host=0.0.0.0 --port=8000
+      php-fpm
       "
-    ports:
-      - "8000:8000"
 
   db:
     image: mysql:8.0
@@ -28,5 +20,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: role_based_admin
-    ports:
-      - "3306:3306"
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
