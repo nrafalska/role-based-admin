@@ -8,7 +8,7 @@ A complete role-based admin system built with Laravel (backend) and Next.js (fro
 - Laravel 11
 - Laravel Sanctum (API Token Authentication)
 - Spatie Laravel Permission
-- MySQL
+- SQLite (no setup required)
 
 ### Frontend
 - Next.js 16 (App Router)
@@ -16,161 +16,33 @@ A complete role-based admin system built with Laravel (backend) and Next.js (fro
 - Tailwind CSS
 - React Context for state management
 
-## Project Structure
+## Quick Start
 
-```
-role-based-admin/
-├── backend/               # Laravel API
-│   ├── app/
-│   │   ├── Http/
-│   │   │   └── Controllers/
-│   │   │       └── Api/
-│   │   │           ├── AuthController.php
-│   │   │           ├── UserController.php
-│   │   │           └── ReportController.php
-│   │   └── Models/
-│   │       └── User.php
-│   ├── database/
-│   │   └── seeders/
-│   │       └── RoleAndPermissionSeeder.php
-│   └── routes/
-│       └── api.php
-└── frontend/              # Next.js App
-    └── src/
-        ├── app/
-        │   ├── dashboard/
-        │   ├── login/
-        │   ├── reports/
-        │   ├── unauthorized/
-        │   └── users/
-        ├── components/
-        │   ├── Navigation.tsx
-        │   └── ProtectedRoute.tsx
-        ├── contexts/
-        │   └── AuthContext.tsx
-        ├── lib/
-        │   └── api.ts
-        └── types/
-            └── index.ts
+### Backend
+
+```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate
+php artisan db:seed
+php artisan serve
 ```
 
-## Roles and Permissions
+API: http://localhost:8000
 
-### Roles
-| Role | Description |
-|------|-------------|
-| `admin` | Full system access, can manage users |
-| `manager` | Can view dashboard and reports |
-| `user` | Basic access, can view dashboard only |
+### Frontend
 
-### Permissions
-| Permission | Description | Roles |
-|------------|-------------|-------|
-| `view_dashboard` | Access to dashboard | admin, manager, user |
-| `manage_users` | Create, update, delete users | admin |
-| `view_reports` | Access to reports section | admin, manager |
+```bash
+cd frontend
+npm install
+cp .env.example .env.local
+npm run dev
+```
 
-## API Endpoints
-
-| Method | Endpoint | Description | Auth | Permission |
-|--------|----------|-------------|------|------------|
-| POST | `/api/login` | User login | No | - |
-| GET | `/api/me` | Get current user | Yes | - |
-| POST | `/api/logout` | User logout | Yes | - |
-| GET | `/api/dashboard` | Dashboard stats | Yes | view_dashboard |
-| GET | `/api/reports` | List reports | Yes | view_reports |
-| GET | `/api/users` | List all users | Yes | manage_users |
-| POST | `/api/users` | Create user | Yes | manage_users |
-| GET | `/api/users/{id}` | Get user | Yes | manage_users |
-| PUT | `/api/users/{id}` | Update user | Yes | manage_users |
-| DELETE | `/api/users/{id}` | Delete user | Yes | manage_users |
-| GET | `/api/roles` | List roles | Yes | manage_users |
-
-## Setup Instructions
-
-### Prerequisites
-- PHP 8.2+
-- Composer
-- Node.js 18+
-- MySQL
-
-### Backend Setup
-
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-   ```bash
-   composer install
-   ```
-
-3. Create environment file:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Configure your database in `.env`:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=role_based_admin
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-
-5. Generate application key:
-   ```bash
-   php artisan key:generate
-   ```
-
-6. Create the database:
-   ```bash
-   mysql -u root -e "CREATE DATABASE role_based_admin"
-   ```
-
-7. Run migrations:
-   ```bash
-   php artisan migrate
-   ```
-
-8. Seed the database:
-   ```bash
-   php artisan db:seed
-   ```
-
-9. Start the development server:
-   ```bash
-   php artisan serve
-   ```
-
-The API will be available at `http://localhost:8000`
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create environment file:
-   ```bash
-   cp .env.example .env.local
-   ```
-
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-The frontend will be available at `http://localhost:3000`
+App: http://localhost:3000
 
 ## Demo Credentials
 
@@ -180,75 +52,53 @@ The frontend will be available at `http://localhost:3000`
 | Manager | manager@example.com | password123 |
 | User | user@example.com | password123 |
 
-## Features
+## Roles and Permissions
 
-### Authentication
-- JWT-like token authentication using Laravel Sanctum
-- Secure token storage in localStorage
-- Automatic token refresh on page load
-- Protected routes with automatic redirects
+| Role | Permissions |
+|------|-------------|
+| `admin` | view_dashboard, manage_users, view_reports |
+| `manager` | view_dashboard, view_reports |
+| `user` | view_dashboard |
 
-### Authorization
-- Role-based access control
-- Permission-based route protection
-- Dynamic navigation based on user permissions
-- Unauthorized page for access denied
+## API Endpoints
 
-### User Management (Admin Only)
-- View all users
-- Create new users with role assignment
-- Delete users
-- Role-based user filtering
+| Method | Endpoint | Description | Permission |
+|--------|----------|-------------|------------|
+| POST | `/api/login` | User login | - |
+| GET | `/api/me` | Get current user | auth |
+| POST | `/api/logout` | User logout | auth |
+| GET | `/api/dashboard` | Dashboard stats | view_dashboard |
+| GET | `/api/reports` | List reports | view_reports |
+| GET | `/api/users` | List all users | manage_users |
+| POST | `/api/users` | Create user | manage_users |
+| DELETE | `/api/users/{id}` | Delete user | manage_users |
 
-### Dashboard
-- System statistics
-- User counts by role
-- Current user information display
+## Project Structure
 
-### Reports (Admin & Manager)
-- View system reports
-- User statistics (total, this month, this week)
-- Report categorization
-
-## Security Features
-
-1. **Token-Based Authentication**: Using Laravel Sanctum for secure API access
-2. **CORS Configuration**: Properly configured for frontend domain
-3. **Permission Middleware**: Server-side permission checking
-4. **Client-Side Protection**: Route guards and permission checks
-5. **Password Hashing**: Secure password storage using bcrypt
-
-## Development
-
-### Running Tests
-
-Backend:
-```bash
-cd backend
-php artisan test
 ```
-
-Frontend:
-```bash
-cd frontend
-npm run lint
-```
-
-### Building for Production
-
-Backend:
-```bash
-cd backend
-php artisan config:cache
-php artisan route:cache
-```
-
-Frontend:
-```bash
-cd frontend
-npm run build
+role-based-admin/
+├── backend/                 # Laravel API
+│   ├── app/Http/Controllers/Api/
+│   │   ├── AuthController.php
+│   │   ├── UserController.php
+│   │   └── ReportController.php
+│   ├── database/seeders/
+│   │   └── RoleAndPermissionSeeder.php
+│   └── routes/api.php
+│
+└── frontend/                # Next.js App
+    └── src/
+        ├── app/
+        │   ├── login/
+        │   ├── dashboard/
+        │   ├── users/        # admin only
+        │   ├── reports/      # admin + manager
+        │   └── unauthorized/
+        ├── components/
+        ├── contexts/AuthContext.tsx
+        └── lib/api.ts
 ```
 
 ## License
 
-MIT License
+MIT
