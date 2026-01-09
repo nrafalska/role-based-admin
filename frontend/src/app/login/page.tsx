@@ -41,16 +41,23 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 py-12 px-4 sm:px-6 lg:px-8">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/50 to-zinc-950"></div>
+    <div className="min-h-screen flex items-center justify-center bg-black py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950/40 via-black to-cyan-950/40"></div>
+        <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-gradient-to-br from-violet-600/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-gradient-to-tl from-cyan-600/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer"></div>
+      </div>
 
       <div className="relative max-w-md w-full">
-        {/* Login card */}
-        <div className="bg-zinc-900 rounded-2xl shadow-2xl p-8 border border-zinc-800">
-          {/* Logo/Icon */}
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-zinc-800 rounded-2xl flex items-center justify-center shadow-lg border border-zinc-700">
+        {/* Login card with gradient border */}
+        <div className="relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-600 via-cyan-500 to-violet-600 rounded-2xl opacity-20 blur-sm animate-gradient"></div>
+          <div className="relative bg-zinc-900/90 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-zinc-800/50">
+            {/* Logo/Icon */}
+            <div className="flex justify-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-violet-600/20 to-cyan-600/20 rounded-2xl flex items-center justify-center shadow-lg border border-zinc-700/50 backdrop-blur">
               <svg className="w-8 h-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
