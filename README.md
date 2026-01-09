@@ -16,6 +16,51 @@ A complete role-based admin system built with Laravel (backend) and Next.js (fro
 - Tailwind CSS
 - React Context for state management
 
+## Quick Start with Docker
+
+The fastest way to get started is using Docker:
+
+```bash
+# Clone and enter directory
+cd role-based-admin
+
+# Run setup (builds, migrates, seeds)
+make setup
+```
+
+Or manually:
+
+```bash
+# Copy environment file
+cp backend/.env.docker backend/.env
+
+# Build and start containers
+docker-compose up -d --build
+
+# Wait for MySQL to be ready, then run migrations
+docker-compose exec backend php artisan key:generate
+docker-compose exec backend php artisan migrate --seed
+```
+
+Access the application:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000/api
+
+### Docker Commands (Makefile)
+
+| Command | Description |
+|---------|-------------|
+| `make setup` | Initial setup (build + migrate + seed) |
+| `make up` | Start containers |
+| `make down` | Stop containers |
+| `make restart` | Restart containers |
+| `make logs` | View logs |
+| `make shell-backend` | Shell into backend |
+| `make shell-frontend` | Shell into frontend |
+| `make migrate` | Run migrations |
+| `make seed` | Run seeders |
+| `make fresh` | Fresh migration with seeding |
+
 ## Project Structure
 
 ```
@@ -35,23 +80,29 @@ role-based-admin/
 │   │       └── RoleAndPermissionSeeder.php
 │   └── routes/
 │       └── api.php
-└── frontend/              # Next.js App
-    └── src/
-        ├── app/
-        │   ├── dashboard/
-        │   ├── login/
-        │   ├── reports/
-        │   ├── unauthorized/
-        │   └── users/
-        ├── components/
-        │   ├── Navigation.tsx
-        │   └── ProtectedRoute.tsx
-        ├── contexts/
-        │   └── AuthContext.tsx
-        ├── lib/
-        │   └── api.ts
-        └── types/
-            └── index.ts
+├── frontend/              # Next.js App
+│   └── src/
+│       ├── app/
+│       │   ├── dashboard/
+│       │   ├── login/
+│       │   ├── reports/
+│       │   ├── unauthorized/
+│       │   └── users/
+│       ├── components/
+│       │   ├── Navigation.tsx
+│       │   └── ProtectedRoute.tsx
+│       ├── contexts/
+│       │   └── AuthContext.tsx
+│       ├── lib/
+│       │   └── api.ts
+│       └── types/
+│           └── index.ts
+├── docker/                # Docker configuration
+│   ├── nginx/
+│   │   └── default.conf
+│   └── start.sh
+├── docker-compose.yml
+└── Makefile
 ```
 
 ## Roles and Permissions
@@ -86,7 +137,7 @@ role-based-admin/
 | DELETE | `/api/users/{id}` | Delete user | Yes | manage_users |
 | GET | `/api/roles` | List roles | Yes | manage_users |
 
-## Setup Instructions
+## Manual Setup (Without Docker)
 
 ### Prerequisites
 - PHP 8.2+
